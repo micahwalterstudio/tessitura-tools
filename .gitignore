@@ -1,0 +1,5 @@
+.vscode
+.DS_Store
+dist
+tessitura.egg*
+build
