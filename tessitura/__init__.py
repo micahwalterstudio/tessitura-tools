@@ -30,20 +30,20 @@ def rest_call(endpoint, credentials, request_type, method, *args, **kwargs):
         
         timeout = {
             "error": 500,
-            "message": "Error connecting to Tessitura",
+            "message": "Time Out Error connecting to Tessitura",
             "e": e
         }
 
         return timeout
     
-    j = r.json()
-
     if r.status_code != 200:
         
         j = {
             "error": r.status_code,
-            "message": j[0]['Description']
-        }
+            "message": r.reason
+        }     
+    else:
+        j = r.json()
     
     return j
 
