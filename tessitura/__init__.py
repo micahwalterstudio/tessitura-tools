@@ -51,7 +51,7 @@ def rest_call(endpoint, credentials, request_type, method, *args, **kwargs):
         if r.text:
             j = r.json()
         else:
-            j = None
+            j = {}
     
     return j
 
