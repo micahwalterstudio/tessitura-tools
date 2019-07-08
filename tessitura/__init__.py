@@ -37,15 +37,21 @@ def rest_call(endpoint, credentials, request_type, method, *args, **kwargs):
         }
 
         return timeout
-    
+        
     if r.status_code != 200:
         j = {
             "error": r.status_code,
             "message": r.reason,
-            "info": r.json()
-        }     
+        }
+
+        if r.text:
+            j["info"] = r.json()
+
     else:
-        j = r.json()
+        if r.text:
+            j = r.json()
+        else:
+            j = None
     
     return j
 
