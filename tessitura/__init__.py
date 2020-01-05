@@ -27,6 +27,8 @@ def rest_call(endpoint, credentials, request_type, method, *args, **kwargs):
             r = requests.request("POST", url, data=str(data), headers=headers, timeout=15)
         elif request_type == "PUT":
             r = requests.request("PUT", url, data=str(data), headers=headers, timeout=15)
+        elif request_type == "DELETE":
+            r = requests.delete(url, headers=headers, timeout=15)
     
     except Exception as e:
         
