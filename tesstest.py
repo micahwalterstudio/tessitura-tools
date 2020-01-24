@@ -18,6 +18,6 @@ data = {
 
 params = {}
 
-rsp = tessitura.rest_call(endpoint, credentials, request_type, method, params=params, data=data)
+rsp = tessitura.rest_call(endpoint, credentials, request_type, method, params=params, data=data, timeout=5)
 
 pprint.pprint(rsp, indent=4)
