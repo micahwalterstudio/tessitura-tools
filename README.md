@@ -34,7 +34,7 @@ params = {}
 data = {}
 
 # Call the API
-rsp = tessitura.rest_call(endpoint, credentials, request_type, method, params=params, data=data)
+rsp = tessitura.rest_call(endpoint, credentials, request_type, method, params=params, data=data, timeout=10)
 
 # Print out the results in JSON format
 pprint.pprint(rsp)
