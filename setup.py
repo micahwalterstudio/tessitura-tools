@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="tessitura",
-    version="0.0.6",
+    version="0.0.7",
     author="Micah Walter",
     author_email="micah@micahwalter.com",
     description="Tools for talking to the Tessitura API",
