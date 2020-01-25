@@ -9,6 +9,7 @@ def rest_call(endpoint, credentials, request_type, method, *args, **kwargs):
 
     params = kwargs.get('params', None)
     data = kwargs.get('data', None)
+    timeout = kwargs.get('timeout', 15)
 
     url = endpoint + method
 
@@ -22,13 +23,13 @@ def rest_call(endpoint, credentials, request_type, method, *args, **kwargs):
 
     try:
         if request_type == "GET":
-            r = requests.get(url, params=params, headers=headers, timeout=15)
+            r = requests.get(url, params=params, headers=headers, timeout=timeout)
         elif request_type == "POST":
-            r = requests.request("POST", url, data=str(data), headers=headers, timeout=15)
+            r = requests.request("POST", url, data=str(data), headers=headers, timeout=timeout)
         elif request_type == "PUT":
-            r = requests.request("PUT", url, data=str(data), headers=headers, timeout=15)
+            r = requests.request("PUT", url, data=str(data), headers=headers, timeout=timeout)
         elif request_type == "DELETE":
-            r = requests.delete(url, headers=headers, timeout=15)
+            r = requests.delete(url, headers=headers, timeout=timeout)
     
     except Exception as e:
         
