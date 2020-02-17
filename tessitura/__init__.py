@@ -13,7 +13,7 @@ def rest_call(endpoint, credentials, request_type, method, *args, **kwargs):
 
     url = endpoint + method
 
-    r = {}
+    # set up headers
    
     headers = {
         'Accept': "application/json",
@@ -21,42 +21,48 @@ def rest_call(endpoint, credentials, request_type, method, *args, **kwargs):
         'Authorization': api_prepare_auth_string(credentials)
     }
 
+    # make the api call
+    response = {}
+
     try:
         if request_type == "GET":
-            r = requests.get(url, params=params, headers=headers, timeout=timeout)
+            response = requests.get(url, params=params, headers=headers, timeout=timeout)
         elif request_type == "POST":
-            r = requests.request("POST", url, data=str(data), headers=headers, timeout=timeout)
+            response = requests.request("POST", url, data=str(data), headers=headers, timeout=timeout)
         elif request_type == "PUT":
-            r = requests.request("PUT", url, data=str(data), headers=headers, timeout=timeout)
+            response = requests.request("PUT", url, data=str(data), headers=headers, timeout=timeout)
         elif request_type == "DELETE":
-            r = requests.delete(url, headers=headers, timeout=timeout)
+            response = requests.delete(url, headers=headers, timeout=timeout)
     
+    # handle request errors
     except Exception as e:
         
-        timeout = {
+        error = {
             "error": 500,
             "message": "Time Out Error connecting to Tessitura",
-            "e": e
+            "info": e
         }
 
-        return timeout
-        
-    if r.status_code != 200:
-        j = {
-            "error": r.status_code,
-            "message": r.reason,
+        return error
+
+    # handle errors from tessitura    
+    if response.status_code != 200:
+        rsp = {
+            "error": response.status_code,
+            "message": response.reason,
         }
 
-        if r.text:
-            j["info"] = r.json()
+        if response.text:
+            rsp["info"] = response.json()
 
+    # handle success
     else:
-        if r.text:
-            j = r.json()
+        if response.text:
+            rsp = response.json()
         else:
-            j = {}
+            rsp = {}
     
-    return j
+    return rsp
 
 
 def api_prepare_auth_string(credentials):
